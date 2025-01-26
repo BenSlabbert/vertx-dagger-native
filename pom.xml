@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>github.benslabbert</groupId>
+    <artifactId>vertx-dagger-bom</artifactId>
+    <version>1.87.0</version>
+  </parent>
+
+  <groupId>github.benslabbert.vdnative</groupId>
+  <artifactId>vertx-dagger-native</artifactId>
+  <version>${revision}</version>
+
+  <properties>
+    <native.maven.plugin.version>0.10.4</native.maven.plugin.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <imageName>main</imageName>
+    <mainClass>io.vertx.core.Launcher</mainClass>
+
+    <!--graalvm reachability have data for this version of logback-->
+    <!--and netty 4.1.115.FINAL-->
+    <logback.version>1.4.9</logback.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.dagger</groupId>
+      <artifactId>dagger</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <useIncrementalCompilation>false</useIncrementalCompilation>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <release>${java.version}</release>
+          <parameters>true</parameters>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <compilerArgs>
+            <arg>-parameters</arg>
+            <!--dagger-->
+            <arg>-Adagger.fastInit=enabled</arg>
+            <arg>-Adagger.formatGeneratedSource=enabled</arg>
+            <!--errorprone-->
+            <arg>-XDcompilePolicy=simple</arg>
+            <arg>--should-stop=ifError=FLOW</arg>
+            <arg>-Xplugin:ErrorProne</arg>
+          </compilerArgs>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>com.google.errorprone</groupId>
+              <artifactId>error_prone_core</artifactId>
+              <version>${errorprone.version}</version>
+            </path>
+            <path>
+              <groupId>com.google.dagger</groupId>
+              <artifactId>dagger-compiler</artifactId>
+              <version>${dagger.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>native</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <version>${native.maven.plugin.version}</version>
+            <configuration>
+              <fallback>false</fallback>
+              <agent>
+                <enabled>true</enabled>
+              </agent>
+              <skipNativeTests>true</skipNativeTests>
+              <debug>true</debug>
+              <buildArgs>
+                <buildArg>-march=native</buildArg>
+                <buildArg>-R:MinHeapSize=2M</buildArg>
+                <buildArg>-R:MaxHeapSize=16M</buildArg>
+                <buildArg>-R:MaxNewSize=2M</buildArg>
+                <buildArg>--gc=serial</buildArg>
+                <buildArg>-Ob</buildArg>
+                <buildArg>-J-Xmx4g</buildArg>
+                <buildArg>--parallelism=4</buildArg>
+                <buildArg>--install-exit-handlers</buildArg>
+                <buildArg>--target=linux-amd64</buildArg>
+                <buildArg>--static-nolibc</buildArg>
+              </buildArgs>
+            </configuration>
+            <executions>
+              <execution>
+                <id>build-native</id>
+                <goals>
+                  <goal>compile-no-fork</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>
