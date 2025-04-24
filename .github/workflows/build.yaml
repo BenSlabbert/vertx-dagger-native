@@ -31,7 +31,7 @@ jobs:
     - name: "Set up JDK 21"
       uses: "actions/setup-java@v4"
       with:
-        distribution: "graalvm"
+        distribution: "graalvm-ce"
         java-version: "21"
         cache: "maven"
     - name: "Set up Maven"

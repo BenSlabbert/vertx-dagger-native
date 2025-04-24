@@ -184,6 +184,8 @@
               <debug>true</debug>
               <buildArgs>
                 <buildArg>-march=native</buildArg>
+                <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
+                <buildArg>--strict-image-heap</buildArg>
                 <buildArg>-R:MinHeapSize=2M</buildArg>
                 <buildArg>-R:MaxHeapSize=16M</buildArg>
                 <buildArg>-R:MaxNewSize=2M</buildArg>
