@@ -9,7 +9,7 @@ name: "Java + Maven"
     - "main"
 jobs:
   build:
-    runs-on: "ubuntu-latest"
+    runs-on: "${{ matrix.os }}"
     env:
       GH_TOKEN: "${{ secrets.GH_TOKEN }}"
     timeout-minutes: 360
@@ -20,6 +20,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        os:
+        - "ubuntu-latest"
+        - "ubuntu-24.04-arm"
         language:
         - "java"
         java-version:
