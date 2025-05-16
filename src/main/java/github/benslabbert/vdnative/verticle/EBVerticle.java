@@ -37,6 +37,6 @@ public class EBVerticle extends AbstractVerticle {
   @Override
   public void stop(Promise<Void> stopPromise) {
     log.info("Stopping EBVerticle");
-    consumer.unregister(stopPromise);
+    consumer.unregister().onComplete(stopPromise);
   }
 }
