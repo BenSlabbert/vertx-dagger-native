@@ -62,7 +62,8 @@ public class MainVerticle extends AbstractVerticle {
     vertx
         .createHttpServer(new HttpServerOptions().setPort(port))
         .requestHandler(router)
-        .listen(
+        .listen()
+        .onComplete(
             s -> {
               if (s.failed()) {
                 startPromise.fail(s.cause());
@@ -80,14 +81,16 @@ public class MainVerticle extends AbstractVerticle {
     boolean cancelled = vertx.cancelTimer(timerId);
     log.info("timer {} cancelled ? {}", timerId, cancelled);
 
-    server.close(
-        ar -> {
-          if (ar.failed()) {
-            stopPromise.fail(ar.cause());
-            return;
-          }
+    server
+        .close()
+        .onComplete(
+            ar -> {
+              if (ar.failed()) {
+                stopPromise.fail(ar.cause());
+                return;
+              }
 
-          stopPromise.complete();
-        });
+              stopPromise.complete();
+            });
   }
 }
