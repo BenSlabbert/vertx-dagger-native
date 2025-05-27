@@ -20,7 +20,7 @@
     <logback.version>1.5.18</logback.version>
     <dagger.version>2.56.2</dagger.version>
     <vertx.version>4.5.14</vertx.version>
-    <spotless.version>2.44.4</spotless.version>
+    <spotless.version>2.44.5</spotless.version>
     <errorprone.version>2.38.0</errorprone.version>
     <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
     <java.version>21</java.version>
