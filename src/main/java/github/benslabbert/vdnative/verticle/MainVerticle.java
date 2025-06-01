@@ -2,8 +2,6 @@
 package github.benslabbert.vdnative.verticle;
 
 import static io.vertx.core.ThreadingModel.EVENT_LOOP;
-import static io.vertx.core.ThreadingModel.VIRTUAL_THREAD;
-import static io.vertx.core.ThreadingModel.WORKER;
 
 import github.benslabbert.vdnative.di.DaggerProvider;
 import github.benslabbert.vdnative.di.Provider;
@@ -31,22 +29,20 @@ public class MainVerticle extends AbstractVerticle {
 
     Provider provider = DaggerProvider.create();
 
+    log.info("deploy child verticles");
     // each instance of this verticle will deploy two of these
     vertx.deployVerticle(
         provider::eBVerticle,
-        // VIRTUAL_THREAD does not work on native image
-        new DeploymentOptions().setThreadingModel(VIRTUAL_THREAD).setInstances(2));
-    vertx.deployVerticle(
-        provider::eBVerticle, new DeploymentOptions().setThreadingModel(WORKER).setInstances(2));
-    vertx.deployVerticle(
-        provider::eBVerticle,
-        new DeploymentOptions().setThreadingModel(EVENT_LOOP).setInstances(2));
+        new DeploymentOptions().setThreadingModel(EVENT_LOOP).setInstances(1));
 
+    log.info("setup timer");
     timerId =
         vertx.setPeriodic(
             100L,
             500L,
             id -> vertx.eventBus().publish("address", new JsonObject().put("key", "value-" + id)));
+
+    log.info("setup router");
 
     Router router = Router.router(vertx);
     router
@@ -59,17 +55,21 @@ public class MainVerticle extends AbstractVerticle {
 
     Integer port = config().getInteger("http.port", 8080);
 
-    vertx
-        .createHttpServer(new HttpServerOptions().setPort(port))
-        .requestHandler(router)
+    log.info("create server");
+    server = vertx.createHttpServer(new HttpServerOptions().setPort(port));
+    log.info("server requestHandler");
+    server = server.requestHandler(router);
+    log.info("server listen");
+    server
         .listen()
         .onComplete(
             s -> {
               if (s.failed()) {
+                log.error("server creation failed", s.cause());
                 startPromise.fail(s.cause());
                 return;
               }
-              server = s.result();
+              log.info("server creation completed");
               startPromise.complete();
             });
   }

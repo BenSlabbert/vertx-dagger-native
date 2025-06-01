@@ -11,8 +11,11 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <imageName>main</imageName>
-    <mainClass>io.vertx.launcher.application.VertxApplication</mainClass>
-    <mainVerticle>github.benslabbert.vdnative.verticle.MainVerticle</mainVerticle>
+    <finalName>example</finalName>
+    <main.class>io.vertx.launcher.application.VertxApplication</main.class>
+    <main.verticle>github.benslabbert.vdnative.verticle.MainVerticle</main.verticle>
+    <mainClass>${main.class}</mainClass>
+    <mainVerticle>${main.verticle}</mainVerticle>
 
     <!--graalvm reachability have data for this version of logback-->
     <!--and netty 4.1.115.FINAL-->
@@ -21,6 +24,7 @@
     <logback.version>1.5.18</logback.version>
     <dagger.version>2.56.2</dagger.version>
     <vertx.version>5.0.0</vertx.version>
+    <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
     <spotless.version>2.44.5</spotless.version>
     <errorprone.version>2.38.0</errorprone.version>
     <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
@@ -168,6 +172,32 @@
           </annotationProcessorPaths>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>${maven-shade-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>${finalName}-uber</finalName>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <manifestEntries>
+                    <Main-Class>${launcher.class}</Main-Class>
+                    <Main-Verticle>${main.verticle}</Main-Verticle>
+                    <X-Compile-Source-JDK>${java.version}</X-Compile-Source-JDK>
+                    <X-Compile-Target-JDK>${java.version}</X-Compile-Target-JDK>
+                  </manifestEntries>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
@@ -180,13 +210,18 @@
             <groupId>org.graalvm.buildtools</groupId>
             <artifactId>native-maven-plugin</artifactId>
             <version>${native.maven.plugin.version}</version>
+            <extensions>true</extensions>
             <configuration>
+              <mainClass>${mainClass}</mainClass>
+              <imageName>main</imageName>
+              <verbose>true</verbose>
+              <quickBuild>true</quickBuild>
               <fallback>false</fallback>
+              <skipNativeTests>true</skipNativeTests>
+              <debug>true</debug>
               <agent>
                 <enabled>true</enabled>
               </agent>
-              <skipNativeTests>true</skipNativeTests>
-              <debug>true</debug>
               <buildArgs>
                 <buildArg>-march=native</buildArg>
                 <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
@@ -200,6 +235,11 @@
                 <buildArg>--parallelism=4</buildArg>
                 <buildArg>--install-exit-handlers</buildArg>
                 <buildArg>--target=linux-amd64</buildArg>
+                <buildArg>-H:+AddAllCharsets</buildArg>
+                <buildArg>-H:+IncludeAllLocales</buildArg>
+                <buildArg>--enable-url-protocols=http,https</buildArg>
+                <buildArg>--initialize-at-build-time=io.vertx.core.impl.logging.LoggerFactory</buildArg>
+                <buildArg>--initialize-at-run-time=io.netty.channel.DefaultChannelId,io.netty.channel.epoll.Native,io.netty.channel.unix.Errors,io.netty.channel.unix.IovArray,io.netty.channel.unix.Socket</buildArg>
               </buildArgs>
             </configuration>
             <executions>
