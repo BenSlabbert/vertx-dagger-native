@@ -11,7 +11,8 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <imageName>main</imageName>
-    <mainClass>io.vertx.core.Launcher</mainClass>
+    <mainClass>io.vertx.launcher.application.VertxApplication</mainClass>
+    <mainVerticle>github.benslabbert.vdnative.verticle.MainVerticle</mainVerticle>
 
     <!--graalvm reachability have data for this version of logback-->
     <!--and netty 4.1.115.FINAL-->
@@ -64,6 +65,10 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-launcher-application</artifactId>
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
