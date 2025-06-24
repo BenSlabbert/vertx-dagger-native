@@ -23,10 +23,10 @@
     <slf4j.version>2.0.17</slf4j.version>
     <logback.version>1.5.18</logback.version>
     <dagger.version>2.56.2</dagger.version>
-    <vertx.version>5.0.0</vertx.version>
+    <vertx.version>5.0.1</vertx.version>
     <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
     <spotless.version>2.44.5</spotless.version>
-    <errorprone.version>2.38.0</errorprone.version>
+    <errorprone.version>2.39.0</errorprone.version>
     <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
     <java.version>24</java.version>
   </properties>
