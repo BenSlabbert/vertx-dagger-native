@@ -7,7 +7,7 @@
   <version>${revision}</version>
 
   <properties>
-    <native.maven.plugin.version>0.10.6</native.maven.plugin.version>
+    <native.maven.plugin.version>0.11.1</native.maven.plugin.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <imageName>main</imageName>
@@ -21,13 +21,13 @@
     <!--and netty 4.1.115.FINAL-->
     <logback.version>1.4.9</logback.version>
     <slf4j.version>2.0.17</slf4j.version>
-    <logback.version>1.5.18</logback.version>
-    <dagger.version>2.56.2</dagger.version>
-    <vertx.version>5.0.0</vertx.version>
-    <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
+    <logback.version>1.5.19</logback.version>
+    <dagger.version>2.57.2</dagger.version>
+    <vertx.version>5.0.4</vertx.version>
+    <maven-shade-plugin.version>3.6.1</maven-shade-plugin.version>
     <spotless.version>2.44.5</spotless.version>
-    <errorprone.version>2.38.0</errorprone.version>
-    <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+    <errorprone.version>2.42.0</errorprone.version>
+    <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
     <java.version>24</java.version>
   </properties>
 
