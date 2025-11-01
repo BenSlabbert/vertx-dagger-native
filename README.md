@@ -36,3 +36,9 @@ Run with previous iprof
 mvnd clean verify -Pnative-instrument
 ```
 
+Ping the server
+
+```shell
+curl http://localhost:8081
+```
+
