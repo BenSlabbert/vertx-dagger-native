@@ -14,7 +14,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <imageName>main</imageName>
     <finalName>example</finalName>
-    <main.class>io.vertx.launcher.application.VertxApplication</main.class>
+    <main.class>github.benslabbert.vdnative.Main</main.class>
     <main.verticle>github.benslabbert.vdnative.verticle.MainVerticle</main.verticle>
     <mainClass>${main.class}</mainClass>
     <mainVerticle>${main.verticle}</mainVerticle>
@@ -208,8 +208,6 @@
                 <buildArg>-R:MaxNewSize=2M</buildArg>
                 <buildArg>--gc=serial</buildArg>
                 <buildArg>-Ob</buildArg>
-                <!--                <buildArg>-J-Xmx4g</buildArg>-->
-                <!--                <buildArg>&#45;&#45;parallelism=4</buildArg>-->
                 <buildArg>--install-exit-handlers</buildArg>
                 <buildArg>--target=linux-amd64</buildArg>
                 <buildArg>-H:+AddAllCharsets</buildArg>
@@ -264,8 +262,6 @@
                 <buildArg>-R:MaxNewSize=2M</buildArg>
                 <buildArg>--gc=serial</buildArg>
                 <buildArg>-O2</buildArg>
-                <!--                <buildArg>-J-Xmx4g</buildArg>-->
-                <!--                <buildArg>&#45;&#45;parallelism=4</buildArg>-->
                 <buildArg>--install-exit-handlers</buildArg>
                 <buildArg>--target=linux-amd64</buildArg>
                 <buildArg>-H:+AddAllCharsets</buildArg>
@@ -321,8 +317,6 @@
                 <buildArg>-R:MaxNewSize=2M</buildArg>
                 <buildArg>--gc=serial</buildArg>
                 <buildArg>-O2</buildArg>
-                <!--                <buildArg>-J-Xmx4g</buildArg>-->
-                <!--                <buildArg>&#45;&#45;parallelism=4</buildArg>-->
                 <buildArg>--install-exit-handlers</buildArg>
                 <buildArg>--target=linux-amd64</buildArg>
                 <buildArg>-H:+AddAllCharsets</buildArg>
