@@ -35,7 +35,7 @@ jobs:
         github-token: "${{ secrets.GITHUB_TOKEN }}"
         cache: "maven"
     - name: "Initialize CodeQL"
-      uses: "github/codeql-action/init@v3"
+      uses: "github/codeql-action/init@v4"
       with:
         languages: "${{ matrix.language }}"
     - name: "Set up Maven"
@@ -46,7 +46,7 @@ jobs:
     - run: "mvn -s settings.xml spotless:check install"
     - run: "mvn -s settings.xml -Pnative package"
     - name: "Perform CodeQL Analysis"
-      uses: "github/codeql-action/analyze@v3"
+      uses: "github/codeql-action/analyze@v4"
     - name: "Submit Dependency Snapshot"
       uses: "advanced-security/maven-dependency-submission-action@v5"
       with:
