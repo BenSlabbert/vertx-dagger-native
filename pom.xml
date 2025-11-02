@@ -298,7 +298,7 @@
               <verbose>true</verbose>
               <quickBuild>true</quickBuild>
               <fallback>false</fallback>
-              <skipNativeTests>true</skipNativeTests>
+              <skipNativeTests>false</skipNativeTests>
               <debug>true</debug>
               <agent>
                 <enabled>true</enabled>
@@ -407,7 +407,7 @@
               <verbose>true</verbose>
               <quickBuild>false</quickBuild>
               <fallback>false</fallback>
-              <skipNativeTests>true</skipNativeTests>
+              <skipNativeTests>false</skipNativeTests>
               <debug>true</debug>
               <agent>
                 <enabled>true</enabled>
