@@ -4,6 +4,7 @@ package github.benslabbert.vdnative.web;
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 import static io.netty.handler.codec.http.HttpHeaderValues.TEXT_PLAIN;
 
+import github.benslabbert.vdnative.EnhanceMe;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.ext.web.RoutingContext;
@@ -20,6 +21,7 @@ public class HelloHandler implements Handler<RoutingContext> {
   @Inject
   HelloHandler() {}
 
+  @EnhanceMe
   @Override
   public void handle(RoutingContext ctx) {
     log.info("Handling request");
