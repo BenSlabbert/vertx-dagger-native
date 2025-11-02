@@ -28,7 +28,7 @@ public class EBVerticle extends AbstractVerticle {
             .handler(
                 message -> {
                   JsonObject body = (JsonObject) message.body();
-                  log.info("Received EB message: %s".formatted(body));
+                  log.info("Received EB message: {}", body);
                 });
 
     startPromise.complete();

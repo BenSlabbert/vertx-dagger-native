@@ -94,7 +94,7 @@ public class MainVerticle extends AbstractVerticle {
     log.info("Stopping vdnative");
 
     boolean cancelled = vertx.cancelTimer(timerId);
-    log.info("timer %s cancelled ? %b".formatted(timerId, cancelled));
+    log.info("timer {} cancelled ? {}", timerId, cancelled);
 
     server
         .close()
