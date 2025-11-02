@@ -24,7 +24,7 @@ jobs:
         - "java"
         java-version:
         - "25"
-        - "26"
+        - "26.ea.13-graal"
         distribution:
         - "graalvm"
     steps:
