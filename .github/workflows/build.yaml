@@ -24,7 +24,6 @@ jobs:
         - "java"
         java-version:
         - "25"
-        - "26-ea"
         distribution:
         - "graalvm"
     steps:
@@ -45,8 +44,8 @@ jobs:
         maven-version: "3.9.11"
     - run: "sudo apt-get install -y build-essential zlib1g-dev"
     - run: "mvn -s settings.xml spotless:check install"
-    - run: "mvn -s settings.xml -Pnative-dev package"
-    - run: "mvn -s settings.xml -Pnative package"
+    - run: "mvn -s settings.xml -Pnative-dev package -DskipTests -Dshade.skip"
+    - run: "mvn -s settings.xml -Pnative package -DskipTests -Dshade.skip"
     - name: "Perform CodeQL Analysis"
       uses: "github/codeql-action/analyze@v4"
     - name: "Submit Dependency Snapshot"
