@@ -2,171 +2,71 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>github.benslabbert.vdnative</groupId>
-  <artifactId>vertx-dagger-native</artifactId>
-  <version>${revision}</version>
-  <packaging>pom</packaging>
+  <parent>
+    <groupId>github.benslabbert.vdnative</groupId>
+    <artifactId>vertx-dagger-native</artifactId>
+    <version>${revision}</version>
+  </parent>
 
-  <modules>
-    <module>app</module>
-    <module>transformer</module>
-  </modules>
+  <artifactId>app</artifactId>
+  <version>${revision}</version>
 
   <properties>
-    <revision>0-SNAPSHOT</revision>
-    <native.maven.plugin.version>0.11.2</native.maven.plugin.version>
-    <java.version>25</java.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
     <imageName>main</imageName>
     <finalName>example</finalName>
     <main.class>github.benslabbert.vdnative.Main</main.class>
     <main.verticle>github.benslabbert.vdnative.verticle.MainVerticle</main.verticle>
     <mainClass>${main.class}</mainClass>
     <mainVerticle>${main.verticle}</mainVerticle>
-    <shade.skip>false</shade.skip>
     <argLine />
-
-    <slf4j.version>2.0.17</slf4j.version>
-    <logback.version>1.5.20</logback.version>
-    <mockito.version>5.20.0</mockito.version>
-    <dagger.version>2.57.2</dagger.version>
-    <vertx.version>5.0.5</vertx.version>
-    <maven-shade-plugin.version>3.6.1</maven-shade-plugin.version>
-    <spotless.version>3.0.0</spotless.version>
-    <errorprone.version>2.43.0</errorprone.version>
-    <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
-    <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
-    <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
-    <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
-    <maven-failsafe-plugin.version>3.5.4</maven-failsafe-plugin.version>
-    <maven-dependency-plugin.version>3.9.0</maven-dependency-plugin.version>
 
     <pgo.file.path>default.iprof</pgo.file.path>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>io.vertx</groupId>
-        <artifactId>vertx-stack-depchain</artifactId>
-        <version>${vertx.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-bom</artifactId>
-        <version>${mockito.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-classic</artifactId>
-        <version>${logback.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.dagger</groupId>
-        <artifactId>dagger</artifactId>
-        <version>${dagger.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-bom</artifactId>
-        <version>${slf4j.version}</version>
-        <type>pom</type>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.dagger</groupId>
+      <artifactId>dagger</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>github.benslabbert.vdnative</groupId>
+      <artifactId>transformer</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-launcher-application</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-junit5</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>${maven-compiler-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-dependency-plugin</artifactId>
-          <version>${maven-dependency-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-failsafe-plugin</artifactId>
-          <version>${maven-failsafe-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>${maven-install-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>${maven-resources-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>${maven-surefire-plugin.version}</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <plugins>
-      <plugin>
-        <groupId>com.diffplug.spotless</groupId>
-        <artifactId>spotless-maven-plugin</artifactId>
-        <version>${spotless.version}</version>
-        <configuration>
-          <yaml>
-            <includes>
-              <include>**/*.yaml</include>
-              <include>**/*.yml</include>
-            </includes>
-            <jackson />
-          </yaml>
-          <pom>
-            <includes>
-              <include>pom.xml</include>
-            </includes>
-            <sortPom>
-              <encoding>UTF-8</encoding>
-              <lineSeparator>${line.separator}</lineSeparator>
-              <expandEmptyElements>false</expandEmptyElements>
-              <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
-              <keepBlankLines>true</keepBlankLines>
-              <nrOfIndentSpace>2</nrOfIndentSpace>
-              <predefinedSortOrder>recommended_2008_06</predefinedSortOrder>
-              <sortDependencies>scope,groupId,artifactId</sortDependencies>
-              <sortPlugins>groupId,artifactId</sortPlugins>
-            </sortPom>
-          </pom>
-          <markdown>
-            <includes>
-              <include>**/*.md</include>
-            </includes>
-            <flexmark />
-          </markdown>
-          <java>
-            <includes>
-              <include>src/main/**/*.java</include>
-              <include>src/test/**/*.java</include>
-            </includes>
-            <googleJavaFormat>
-              <style>GOOGLE</style>
-              <reflowLongStrings>true</reflowLongStrings>
-            </googleJavaFormat>
-            <formatAnnotations />
-            <licenseHeader>
-              <content>/* Licensed under Apache-2.0 $YEAR. */</content>
-              <delimiter>package</delimiter>
-            </licenseHeader>
-          </java>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
