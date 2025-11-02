@@ -19,6 +19,8 @@
     <mainClass>${main.class}</mainClass>
     <mainVerticle>${main.verticle}</mainVerticle>
 
+    <slf4j.version>2.0.17</slf4j.version>
+    <logback.version>1.5.20</logback.version>
     <dagger.version>2.57.2</dagger.version>
     <vertx.version>5.0.5</vertx.version>
     <maven-shade-plugin.version>3.6.1</maven-shade-plugin.version>
@@ -38,10 +40,21 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-bom</artifactId>
+        <version>${slf4j.version}</version>
+        <type>pom</type>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.google.dagger</groupId>
       <artifactId>dagger</artifactId>
@@ -58,6 +71,10 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
     </dependency>
   </dependencies>
 

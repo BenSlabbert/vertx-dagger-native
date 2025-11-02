@@ -1,6 +1,93 @@
 {
   "reflection": [
     {
+      "type": "ch.qos.logback.classic.encoder.PatternLayoutEncoder",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "ch.qos.logback.classic.joran.SerializedModelConfigurator",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "ch.qos.logback.classic.spi.LogbackServiceProvider"
+    },
+    {
+      "type": "ch.qos.logback.classic.util.DefaultJoranConfigurator",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "ch.qos.logback.core.ConsoleAppender",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "ch.qos.logback.core.OutputStreamAppender",
+      "methods": [
+        {
+          "name": "setEncoder",
+          "parameterTypes": [
+            "ch.qos.logback.core.encoder.Encoder"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ch.qos.logback.core.encoder.Encoder"
+    },
+    {
+      "type": "ch.qos.logback.core.encoder.LayoutWrappingEncoder",
+      "methods": [
+        {
+          "name": "setParent",
+          "parameterTypes": [
+            "ch.qos.logback.core.spi.ContextAware"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ch.qos.logback.core.pattern.PatternLayoutEncoderBase",
+      "methods": [
+        {
+          "name": "setPattern",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ch.qos.logback.core.spi.ContextAware"
+    },
+    {
+      "type": "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "github.benslabbert.vdnative.verticle.MainVerticle",
       "methods": [
         {
@@ -98,16 +185,13 @@
       "type": "io.vertx.core.internal.concurrent.InboundMessageQueue"
     },
     {
-      "type": "io.vertx.core.logging.Log4j2LogDelegateFactory",
+      "type": "io.vertx.core.logging.SLF4JLogDelegateFactory",
       "methods": [
         {
           "name": "<init>",
           "parameterTypes": []
         }
       ]
-    },
-    {
-      "type": "io.vertx.core.logging.SLF4JLogDelegateFactory"
     },
     {
       "type": "io.vertx.core.streams.impl.MessagePassingQueue$SpSc"
@@ -472,20 +556,14 @@
           "parameterTypes": []
         }
       ]
-    },
-    {
-      "type": "sun.text.resources.cldr.FormatData"
-    },
-    {
-      "type": "sun.text.resources.cldr.FormatData_en"
-    },
-    {
-      "type": "sun.text.resources.cldr.FormatData_en_US"
     }
   ],
   "resources": [
     {
       "glob": "META-INF/MANIFEST.MF"
+    },
+    {
+      "glob": "META-INF/services/ch.qos.logback.classic.spi.Configurator"
     },
     {
       "glob": "META-INF/services/io.vertx.core.spi.JsonFactory"
@@ -503,24 +581,28 @@
       "glob": "META-INF/services/java.time.zone.ZoneRulesProvider"
     },
     {
+      "glob": "META-INF/services/javax.xml.parsers.SAXParserFactory"
+    },
+    {
+      "glob": "META-INF/services/org.slf4j.spi.SLF4JServiceProvider"
+    },
+    {
       "glob": "file.txt"
     },
     {
-      "glob": "logging.properties"
+      "glob": "logback-test.scmo"
+    },
+    {
+      "glob": "logback-test.xml"
+    },
+    {
+      "glob": "logback.scmo"
+    },
+    {
+      "glob": "logback.xml"
     },
     {
       "glob": "vertx-default-jul-logging.properties"
-    },
-    {
-      "module": "java.logging",
-      "glob": "sun/util/logging/resources/logging_en.properties"
-    },
-    {
-      "module": "java.logging",
-      "glob": "sun/util/logging/resources/logging_en_US.properties"
-    },
-    {
-      "bundle": "sun.util.logging.resources.logging"
     }
   ]
 }

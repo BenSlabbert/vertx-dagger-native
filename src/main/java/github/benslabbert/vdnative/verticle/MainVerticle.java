@@ -18,11 +18,12 @@ import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import java.io.InputStream;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MainVerticle extends AbstractVerticle {
 
-  private static final Logger log = Logger.getLogger(MainVerticle.class.getName());
+  private static final Logger log = LoggerFactory.getLogger(MainVerticle.class);
 
   private HttpServer server;
   long timerId = -1L;
@@ -33,7 +34,7 @@ public class MainVerticle extends AbstractVerticle {
 
     try (InputStream is = getClass().getResourceAsStream("/file.txt")) {
       byte[] bytes = is.readAllBytes();
-      log.info("Reading file: " + new String(bytes));
+      log.info("Reading file: {}", new String(bytes));
     } catch (Exception e) {
       throw VertxException.noStackTrace(e);
     }
@@ -79,7 +80,7 @@ public class MainVerticle extends AbstractVerticle {
         .onComplete(
             s -> {
               if (s.failed()) {
-                log.severe("server creation failed");
+                log.error("server creation failed");
                 startPromise.fail(s.cause());
                 return;
               }

@@ -5,7 +5,7 @@
         "pattern": "^*.txt$"
       },
       {
-        "pattern": "^*.properties$"
+        "pattern": "^logback.xml$"
       }
     ]
   }
