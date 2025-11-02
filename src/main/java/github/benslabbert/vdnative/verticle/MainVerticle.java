@@ -1,10 +1,9 @@
 /* Licensed under Apache-2.0 2025. */
 package github.benslabbert.vdnative.verticle;
 
-import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
-import static io.netty.handler.codec.http.HttpHeaderValues.TEXT_PLAIN;
 import static io.vertx.core.ThreadingModel.EVENT_LOOP;
 import static io.vertx.core.ThreadingModel.VIRTUAL_THREAD;
+import static io.vertx.core.ThreadingModel.WORKER;
 
 import github.benslabbert.vdnative.di.DaggerProvider;
 import github.benslabbert.vdnative.di.Provider;
@@ -12,7 +11,6 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Promise;
 import io.vertx.core.VertxException;
-import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.json.JsonObject;
@@ -27,6 +25,10 @@ public class MainVerticle extends AbstractVerticle {
 
   private HttpServer server;
   long timerId = -1L;
+
+  int getPort() {
+    return server.actualPort();
+  }
 
   @Override
   public void start(Promise<Void> startPromise) {
@@ -47,6 +49,8 @@ public class MainVerticle extends AbstractVerticle {
         provider::eBVerticle,
         new DeploymentOptions().setThreadingModel(EVENT_LOOP).setInstances(1));
     vertx.deployVerticle(
+        provider::eBVerticle, new DeploymentOptions().setThreadingModel(WORKER).setInstances(1));
+    vertx.deployVerticle(
         provider::eBVerticle,
         new DeploymentOptions().setThreadingModel(VIRTUAL_THREAD).setInstances(1));
 
@@ -60,13 +64,7 @@ public class MainVerticle extends AbstractVerticle {
     log.info("setup router");
 
     Router router = Router.router(vertx);
-    router
-        .route("/")
-        .handler(
-            ctx -> {
-              log.info("Handling request");
-              ctx.put(CONTENT_TYPE.toString(), TEXT_PLAIN.toString()).end(Buffer.buffer("hello"));
-            });
+    router.route("/hello").handler(provider.helloHandler());
 
     Integer port = config().getInteger("http.port", 8080);
 

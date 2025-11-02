@@ -1,6 +1,7 @@
 /* Licensed under Apache-2.0 2025. */
 package github.benslabbert.vdnative;
 
+import io.vertx.core.ThreadingModel;
 import io.vertx.launcher.application.HookContext;
 import io.vertx.launcher.application.VertxApplication;
 import io.vertx.launcher.application.VertxApplicationHooks;
@@ -22,7 +23,11 @@ public class Main extends VertxApplication {
         new VertxApplicationHooks() {
           @Override
           public void beforeDeployingVerticle(HookContext context) {
-            context.deploymentOptions().setWorkerPoolSize(1).setWorkerPoolName("worker-pool");
+            context
+                .deploymentOptions()
+                .setThreadingModel(ThreadingModel.VIRTUAL_THREAD)
+                .setWorkerPoolSize(1)
+                .setWorkerPoolName("worker-pool");
           }
 
           @Override

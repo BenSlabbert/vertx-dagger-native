@@ -3,6 +3,7 @@ package github.benslabbert.vdnative.di;
 
 import dagger.Component;
 import github.benslabbert.vdnative.verticle.EBVerticle;
+import github.benslabbert.vdnative.web.HelloHandler;
 import jakarta.inject.Singleton;
 
 @Singleton
@@ -10,4 +11,6 @@ import jakarta.inject.Singleton;
 public interface Provider {
 
   EBVerticle eBVerticle();
+
+  HelloHandler helloHandler();
 }
