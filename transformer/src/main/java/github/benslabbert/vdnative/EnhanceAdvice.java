@@ -11,11 +11,11 @@ final class EnhanceAdvice {
 
   @OnMethodEnter
   static void onEnter(@Origin("#t\\##m") String methodName) {
-    System.err.println("EnhanceAdvice.onEnter: "+ methodName);
+    System.err.println("EnhanceAdvice.onEnter: " + methodName);
   }
 
   @OnMethodExit
   static void onExit(@Origin("#t\\##m") String methodName) {
-    System.err.println("EnhanceAdvice.onExit: "+ methodName);
+    System.err.println("EnhanceAdvice.onExit: " + methodName);
   }
 }
