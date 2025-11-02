@@ -20,12 +20,10 @@ public class TransformerPlugin implements Plugin {
             .toList();
 
     if (advisedMethods.isEmpty()) {
-      System.err.println("no annotations found for EnhanceMe method");
       return builder;
     }
 
     for (InDefinedShape tm : advisedMethods) {
-      System.err.println("enhancing method " + tm);
       builder = builder.method(md -> md.equals(tm)).intercept(Advice.to(EnhanceAdvice.class));
     }
 
