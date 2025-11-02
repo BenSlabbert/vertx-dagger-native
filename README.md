@@ -6,6 +6,8 @@ Build with maven
 mvn clean install
 ```
 
+## Native Image
+
 Run instrumented binary and specify the output path to the iprof file.
 
 ```shell
@@ -42,3 +44,9 @@ Ping the server
 curl http://localhost:8081
 ```
 
+## Layered Native Image
+
+[TODO]
+
+https://github.com/graalvm/graalvm-demos/tree/master/native-image/microservices/micronaut-hello-rest-maven-layered
+https://github.com/oracle/graal/blob/master/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/imagelayer/NativeImageLayers.md
