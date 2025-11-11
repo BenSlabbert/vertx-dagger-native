@@ -14,7 +14,7 @@
 
   <properties>
     <revision>0-SNAPSHOT</revision>
-    <native.maven.plugin.version>0.11.2</native.maven.plugin.version>
+    <native.maven.plugin.version>0.11.3</native.maven.plugin.version>
     <java.version>25</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -30,7 +30,7 @@
     <maven-shade-plugin.version>3.6.1</maven-shade-plugin.version>
     <spotless.version>3.0.0</spotless.version>
     <errorprone.version>2.44.0</errorprone.version>
-    <byte-buddy.version>1.17.8</byte-buddy.version>
+    <byte-buddy.version>1.18.0</byte-buddy.version>
     <asm.version>9.9</asm.version>
 
     <!--plugins-->
