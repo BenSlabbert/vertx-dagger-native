@@ -28,7 +28,7 @@
     <dagger.version>2.57.2</dagger.version>
     <vertx.version>5.0.5</vertx.version>
     <maven-shade-plugin.version>3.6.1</maven-shade-plugin.version>
-    <spotless.version>3.0.0</spotless.version>
+    <spotless.version>3.1.0</spotless.version>
     <errorprone.version>2.44.0</errorprone.version>
     <byte-buddy.version>1.18.1</byte-buddy.version>
     <asm.version>9.9</asm.version>
